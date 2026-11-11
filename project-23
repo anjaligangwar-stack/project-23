@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIP CALCULATOR</title>
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+  body{
+    background:#f2f2f2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+  h1{
+    font-size:28px;
+    text-align:center;
+    color:#0a1a4d;
+    line-height:1.2;
+}
+  h1 span{
+    font-size:22px;
+}
+  .card{
+    width:100%;
+    max-width:360px;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    margin-top:20px;
+}
+  .header{
+    background:#0a1a5e;
+    color:#fff;
+    text-align:center;
+    padding:16px;
+    font-size:19px;
+    letter-spacing:1px;
+}
+  .body{
+    padding:22px;
+}
+  label{
+    display:block;
+    color:#444;
+    font-size:16px;
+    margin:16px 0 6px;
+}
+  .row{
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid #999;
+    padding-bottom:5px;
+}
+  .row input{
+    flex:1;
+    border:none;
+    outline:none;
+    font-size:18px;
+    padding:6px 2px;
+}
+  .row span{
+    font-size:18px;
+}
+  select{
+    width:100%;
+    border:none;
+    border-bottom:1px solid #999;
+    outline:none;
+    font-size:16px;
+    padding:8px 2px;
+    background:#fff;
+    color:#333;
+}
+  .result{
+    text-align:center;
+    margin-top:28px;
+}
+  .result b{
+    font-size:20px;
+}
+  .result h2{
+    font-size:24px;
+    margin-top:10px;
+    font-weight:500;
+}
+  .result p{
+    font-size:18px;
+}
+  button{
+    width:100%;
+    margin-top:22px;
+    background:#0a1a5e;
+    color:#fff;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    font-size:17px;
+    cursor:pointer;
+}
+  button:active{
+    transform:scale(0.98);
+}
+  .total{ 
+    text-align:center;
+    margin-top:12px;
+    color:#555;
+    font-size:14px;
+    }
+</style>
+</head>
+<body>
+
+<h1>TIP CALCULATOR<br></h1>
+
+<div class="card">
+  <div class="header">TIP CALCULATOR</div>
+  <div class="body">
+    <label>Bill Amount</label>
+    <div class="row">
+      <input type="number" id="bill" placeholder="0">
+      <span>₹</span>
+    </div>
+
+    <label>How was the service ?</label>
+    <select id="service">
+      <option value="0" disabled selected>Select</option>
+      <option value="0.25">25% - Top Notch</option>
+      <option value="0.20">20% - Excellent</option>
+      <option value="0.15">15% - Good</option>
+      <option value="0.10">10% - Bad</option>
+      <option value="0.05">5% - Worst</option>
+    </select>
+
+    <label>Total number of persons</label>
+    <div class="row">
+      <input type="number" id="persons" placeholder="Number of people sharing the bill">
+    </div>
+
+    <button onclick="calculate()">Calculate Tip</button>
+
+    <div class="result">
+      <b>Tip Amount</b>
+      <h2><span id="tip">0 ₹</span></h2>
+      <p>each</p>
+    </div>
+    <div class="total" id="totalText"></div>
+  </div>
+</div>
+
+<script>
+function calculate(){
+  let bill = parseFloat(document.getElementById("bill").value);
+  let service = parseFloat(document.getElementById("service").value);
+  let persons = parseInt(document.getElementById("persons").value);
+
+  if(!bill || !service || !persons){
+    document.getElementById("tip").innerText = "Please fill all";
+    document.getElementById("totalText").innerText = "";
+    return;
+  }
+
+  let totalTip = bill * service;
+  let perPerson = totalTip / persons;
+
+  document.getElementById("tip").innerText = perPerson.toFixed(2) + " ₹";
+  document.getElementById("totalText").innerText = "Total Tip: " + totalTip.toFixed(2) + " ₹  |  Total Bill: " + (bill + totalTip).toFixed(2) + " ₹";
+}
+</script>
+
+</body>
+</html>
